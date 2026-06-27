@@ -1,12 +1,18 @@
-[package]
-name = "restaurant-local-pay"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+resolver = "2"
+members = [
+  "contracts/token_vault"
+]
 
-[lib]
-crate-type = ["cdylib"]
+[workspace.dependencies]
+soroban-sdk = "23.0.3"
 
-[dependencies]
-soroban-sdk = "20.3.0"
 [profile.release]
+opt-level = "z"
 overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true
