@@ -1,0 +1,116 @@
+# Stellar Token Mini dApp
+
+## Problem
+
+Users need a simple way to create and manage custom tokens on Stellar without complex infrastructure.
+
+## Solution
+
+A Soroban-based smart contract that enables minting, transferring, and managing a custom token with basic payment functionality.
+
+## Why Stellar
+
+Stellar’s Soroban smart contracts allow fast, low-cost, and secure token operations on a scalable blockchain.
+
+## Target User
+
+Developers and learners who want to understand how to build and interact with token smart contracts on Stellar.
+
+## Live Demo
+
+* Network: Stellar Testnet
+
+* **Contract ID**: `CBZCZQL4AYVXP7LWVDO5BRJ45JRKBVYQFN7IQKQOEFIKVAME5I2X5VT4`
+
+* **Transaction**: https://stellar.expert/explorer/testnet/tx/1f60e585b94180f2b270752c8783f6d2f16de5de1a6d0d00cf0884b0106652b1
+
+## Features
+
+* Mint token to any address
+* Transfer token between users
+* Payment contract integration (`pay`)
+* Event logging (transfer, mint, payment)
+* Full test coverage with `cargo test`
+
+## How to Run
+
+1. Clone repo:
+
+```
+git clone https://github.com/Uyen-dev-k9/stellar-token-dapp.git
+```
+
+2. Build contract:
+
+```
+cd soroban-examples/token
+cargo build --target wasm32v1-none --release
+```
+
+3. Run tests:
+
+```
+cargo test
+```
+
+4. Deploy contract:
+
+```
+soroban contract deploy \
+  --wasm target/wasm32v1-none/release/soroban_token_contract.wasm \
+  --source admin \
+  --network testnet \
+  -- \
+  --admin YOUR_PUBLIC_KEY \
+  --decimal 2 \
+  --name "Vietnam Dong" \
+  --symbol "VND"
+```
+
+5. Mint token:
+
+```
+soroban contract invoke \
+  --id YOUR_CONTRACT_ID \
+  --source admin \
+  --network testnet \
+  -- \
+  mint \
+  --to USER_ADDRESS \
+  --amount 1000
+```
+
+6. Transfer / Pay:
+
+```
+soroban contract invoke \
+  --id PAYMENT_CONTRACT_ID \
+  --source user1 \
+  --network testnet \
+  -- \
+  pay \
+  --from USER_ADDRESS \
+  --token TOKEN_CONTRACT_ID \
+  --amount 200
+```
+
+## Tech Stack
+
+* Smart Contract: Rust / Soroban SDK
+* CLI: Soroban CLI
+* Testing: Cargo test
+* Network: Stellar Testnet
+
+## Project Structure
+
+```
+token/
+ ├── src/
+ ├── tests/
+ ├── Cargo.toml
+ └── target/
+```
+
+## Team
+
+* beba | [kimuyen230709@gmail.com]
